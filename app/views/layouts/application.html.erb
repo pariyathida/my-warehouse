@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+    .mySlides {display: none}
+    </style>
+  </head>
+
+  <body class="w3-content w3-border-left w3-border-right">
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-light-grey w3-top" style="z-index:3;width:210px" id="mySidebar">
+      <div class="w3-container w3-display-container w3-padding-16">
+        <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-transparent w3-display-topright"></i>
+        <h3>My Warehouse</h3>
+        <hr>
+      </div>
+
+      <%= render "layouts/navigator" %>
+    </nav>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main w3-white" style="margin-left:230px">
+
+
+      <!-- Slideshow Header -->
+      <div class="w3-center">
+        <% flash.each do |type, msg| %>
+          <div>
+            <p><%= msg %></p>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="w3-container" id="products">
+        <%= yield %>
+      </div>
+      <hr>
+      
+      
+      <div class="w3-container" id="add_product">
+        <h2 class="w3-text-teal">Add Product</h2>
+        <%= render file: "products/new" %>
+      </div>
+      <hr>
+
+      <!-- Contact -->
+      <div class="w3-container" id="contact">
+        <h2 class="w3-text-teal">Contact</h2>
+        <i class="fa fa-map-marker" style="width:30px"></i> Bangkok, Thailand<br>
+        <i class="fa fa-phone" style="width:30px"></i> Phone: +00 151515<br>
+        <i class="fa fa-envelope" style="width:30px"> </i> Email: pariyathida@gmail.com<br>
+      </div>
+      
+      <footer class="w3-container w3-padding-16" style="margin-top:32px">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></footer>
+
+    <!-- End page content -->
+    </div>
+  </body>
+</html>

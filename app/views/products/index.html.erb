@@ -1,0 +1,39 @@
+<h1 class="w3-text-teal">Listing products</h1>
+
+<% if @product.empty? %>
+  <p> No item to show </p>
+<% else %>
+  <table class="w3-table w3-bordered w3-small">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Import Date</th>
+      <th>Export Date</th>
+      <th>Weight</th>
+      <th>Width</th>
+      <th>Length</th>
+      <th>Height</th>
+      <th>Fee</th>
+      <th>Exported</th>
+    </tr>
+  
+    <% @product.all.each do |product| %>
+      <tr>
+        <td><%= product.id %></td>
+        <td><%= product.name %></td>
+        <td><%= product.type %></td>
+        <td><%= product.import_date %></td>
+        <td><%= product.export_date %></td>
+        <td><%= product.weight %></td>
+        <td><%= product.width %></td>
+        <td><%= product.length %></td>
+        <td><%= product.height %></td>
+        <td><%= product.calculate_fee %></td>
+        <td><%= product.exported %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+

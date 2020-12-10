@@ -1,0 +1,47 @@
+
+<div class="w3-container">
+  <div class="w3-col s6 w3-padding">
+    <p><%= f.label :name do %>
+      <i class="fa fa-cube"></i> Name
+    <%- end -%></p>
+    <%= f.text_field :name, class: "w3-input w3-border", required: true %>
+
+    <p><%= f.label :import_date do %>
+      <i class="fa fa-calendar-check-o"></i> Import Date
+    <% end %></p>
+    <%= f.datetime_local_field :import_date, class: "w3-input w3-border", required: true %>
+
+    <p><%= f.label :weight do %>
+      <i class="fa fa-balance-scale"></i> Weight (g) (1kg = 1000g)
+    <% end %></p>
+    <%= f.number_field :weight, class: "w3-input w3-border", value: "0", min: "0" %>
+
+    <p><%= f.label :width do %>
+      <i class="fa fa-long-arrow-right"></i> Width (cm)
+    <% end %></p>
+    <%= f.number_field :width, class: "w3-input w3-border", value: "0", min: "0" %>
+  </div>
+  <div class="w3-col s6 w3-padding">
+    <p><%= f.label :type do %>
+      <i class="fa fa-search"></i> Type
+    <%- end -%></p>
+    <div class="w3-input w3-border-0">
+      <%= f.select :type, options_for_select([['Supplementary Food', "SupplementaryFood"], ["Cloth", "Cloth"], ["Other", "Other"]], selected: "Cloth") %>
+    </div>
+
+    <p><%= f.label :export_date do %> 
+      <i class="fa fa-calendar-o"></i> Export Date
+    <% end %></p>
+    <%= f.datetime_local_field :export_date, class: "w3-input w3-border", required: true %>
+
+    <p><%= f.label :length do %>
+      <i class="fa fa-arrows-h"></i> Length (cm)
+    <% end %></p>
+    <%= f.number_field :length, class: "w3-input w3-border", value: "0", min: "0" %>
+
+    <p><%= f.label :height do %>
+      <i class="fa fa-arrows-v"></i> Height (cm)
+    <% end %></p>
+    <%= f.number_field :height, class: "w3-input w3-border", value: "0", min: "0" %>
+  </div>
+</div>

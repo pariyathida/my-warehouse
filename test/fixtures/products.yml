@@ -1,0 +1,44 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+product_supplementary_food: 
+  id: 1
+  name: "product_supplementary_food"
+  type: "SupplementaryFood"
+  description: null,
+  import_date: "2020-12-08T22:08:00.000Z"
+  export_date: "2020-12-10T22:08:00.000Z"
+  weight: 0
+  width: 10
+  length: 10
+  height: 10
+  exported: false
+
+product_clothes: 
+  id: 2
+  name: "product_clothes"
+  type: "Cloth"
+  description: null,
+  import_date: "2020-12-08T22:08:00.000Z"
+  export_date: "2020-12-10T22:08:00.000Z"
+  weight: 100
+  width: 10
+  length: 10
+  height: 10
+  exported: false
+
+product_others: 
+  id: 3
+  name: "product_others"
+  type: "Other"
+  description: null,
+  import_date: "2020-12-08T22:08:00.000Z"
+  export_date: "2020-12-10T22:08:00.000Z"
+  weight: 0
+  width: 10
+  length: 10
+  height: 10
+  exported: false
