@@ -9,6 +9,37 @@ class ClothTest < ActiveSupport::TestCase
   end
 
   #
+  # validation test
+  #
+  test "that it is valid if weight provided" do
+    @product.update(weight: 500, width: 0, length: 0, height: 0)
+
+    assert @product.valid?
+  end
+
+  test "that it is valid if dimension provided" do
+    @product.update(weight: 0, width: 20, length: 20, height: 20)
+
+    assert @product.valid?
+  end
+
+  test "that it is not valid if weight or dimension is not provided" do
+    test_value = [
+      [ 0, 0, 0, 0 ],
+      [ 0, 10, 0, 0 ],
+      [ -1, 3, 4, 0],
+      [ "a", 10, 10, 10],
+      [ 5.4, 10, 10, 10],
+    ]
+
+    test_value.each do |weight, w, l, h|
+      @product.update(weight: weight, width: w, length: l, height: h)
+
+      assert_equal false, @product.valid?
+    end
+  end
+
+  #
   # 1 day range with 20 THB fees
   #
 

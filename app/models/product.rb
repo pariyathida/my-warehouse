@@ -19,13 +19,34 @@ class Product < ApplicationRecord
     :height,
   presence: true
 
-  validate :available_date_range?
+  validates :weight,
+    :width,
+    :length,
+    :height,
+  numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+
+  validate :available_date_range? # check that the export date must be after the import date
+  validate :weight_or_dimension_provided? # validate either weight or dimension must be provided
 
   def available_date_range?
     return false if import_date.nil? || export_date.nil?
 
     unless day_range > 0
       errors.add(:export_date, "must be after the import_date")
+    end
+  end
+
+  def weight_or_dimension_provided?
+    if weight_required?
+      unless weight_provided? || dimension_provided?
+        errors.add(:weight, "or dimension must be provided")
+      end
+    else
+      unless dimension_provided?
+        errors.add(:width, "must be provided")
+        errors.add(:length, "must be provided")
+        errors.add(:height, "must be provided")
+      end
     end
   end
 
@@ -63,12 +84,17 @@ class Product < ApplicationRecord
 
   #
   # Calculation
+  # These are a main calculation method which can be called by each subclass
   #
 
+  # this method will be overrided by each subclass
   def calculate_fee
     (FEE * day_range * volume_in_m).to_f
   end
 
+  # คลังต้องการคิดค่าบริการลูกค้าตามจำนวนวันที่ลูกค้านำสินค้ามาเก็บไว้ จนถึงวันที่ลูกค้านำสินค้าออกจากคลัง
+  # โดยไม่สนใจเศษของวัน แต่คิดค่าบริการขั้นต่ำ 1 วัน 
+  # (ตัวอย่าง เก็บวันที่ 12/04/2019 เวลา 12.00 และ นำออกวันที่ 14/04/2019 เวลา 08.00 คิดค่าบริการ 2 วัน)
   def day_range
     calculate_number_of_days(import_date, export_date)
   end
@@ -78,7 +104,7 @@ class Product < ApplicationRecord
   end
 
   def volume_in_m
-    calculate_volume(width, length, height) * 0.000001
+    volume_in_cm * 0.000001
   end
 
   def volume_to_weight_in_kg
@@ -94,13 +120,18 @@ class Product < ApplicationRecord
   def calculate_number_of_days(start_date, end_date)
     d1 = DateTime.parse(start_date.to_s)
     d2 = DateTime.parse(end_date.to_s)
+
     fraction_of_the_day = time_count(d1, d2)
+
+    # ex. 19-10-2020..19-10-2020 = 1 day
+    # ex. 19-10-2020..20-10-2020 = 2 day
     days_range = (d1.to_date .. d2.to_date).count - 1
-    
 
     days_range + fraction_of_the_day
   end
 
+  # calculate fraction of the day by using time in hour and min
+  # if end_time is more than start_time, return 1 (day), otherwise return 0 (day)
   def time_count(start_time, end_time)
     h1 = get_hour(start_time)
     h2 = get_hour(end_time)
@@ -122,5 +153,21 @@ class Product < ApplicationRecord
 
   def calculate_volume(width, length, height)
     width * length * height
+  end
+
+  def weight_required?
+    type == "Cloth"
+  end
+
+  def dimension_provided?
+    width > 0 && height > 0 && length > 0
+  rescue
+    false
+  end
+
+  def weight_provided?
+    weight > 0
+  rescue
+    false
   end
 end

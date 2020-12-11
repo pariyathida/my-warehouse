@@ -9,6 +9,30 @@ class OtherTest < ActiveSupport::TestCase
   end
 
   #
+  # validation test
+  #
+  test "that it is valid if dimension provided" do
+    @product.update(weight: 0, width: 20, length: 20, height: 20)
+
+    assert @product.valid?
+  end
+
+  test "that it is not valid if dimension is not provided" do
+    test_value = [
+      [ 0, 0, 0, 0 ],
+      [ 10, 0, 0, 0],
+      [ 0, "a", 10, 10],
+      [ 0, 5.5, 10, 10],
+    ]
+
+    test_value.each do |weight, w, l, h|
+      @product.update(weight: weight, width: w, length: l, height: h)
+
+      assert_equal false, @product.valid?
+    end
+  end
+
+  #
   # 1 day range with 10 THB fees (use dimension for calculation)
   #
   test "that it returns a correct result when dimension changed" do

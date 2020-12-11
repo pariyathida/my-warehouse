@@ -20,7 +20,10 @@ class Api::ProductsController < ActionController::API
 
       render json: @product
     else
-      render json: @product.errors
+      render status: :bad_request, json: {
+        status: "error",
+        message: @product.errors.full_messages.to_sentence.downcase,
+      }
     end
   end
 
@@ -65,15 +68,18 @@ class Api::ProductsController < ActionController::API
       :width,
       :length,
       :height,
+      :type,
     ).merge(
-      exported: false,
+      exported: false, # false by default, it means "imported"
       type: type_mapping,
     )
   end
 
   def type_mapping
-    if Product::TYPE_MAPPING.value?(params[:type])
-      params[:type]
+    # If type isn't available (not in the list) then it will just go for "Others"
+    # This helps protect the system not to be crashed when someone send a wrong type.
+    if Product::TYPE_MAPPING.value?(params[:product][:type])
+      params[:product][:type]
     else
       "Other"
     end
