@@ -54,10 +54,6 @@ class Api::ProductsController < ActionController::API
 
   private
 
-  def set_product
-    @product = Product.new
-  end
-
   def permitted_params
     params.required(:product).permit(
       :import_date,

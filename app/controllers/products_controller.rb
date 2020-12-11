@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-# this class is for http://localhost:3000/products
+# this class is for http://localhost:3000/
 
   def index
     @product = Product.all
@@ -21,15 +21,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  def summary
-    @total_profit = Product.total_profit
-  end
-
   private
-
-  def set_product
-    @product = Product.new
-  end
 
   def permitted_params
     params.required(:product).permit(
