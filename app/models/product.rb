@@ -1,8 +1,13 @@
 class Product < ApplicationRecord
-  FEE = 1
+  FEE = 1 # default set but not used
+
+  # manually add more type here when adding a new product type
+  # ( plan to make the subclass list itself to the superclass,
+  # so that this list will update itself automatically )
   TYPE_MAPPING = {
     supplementary_food: "SupplementaryFood",
     cloth: "Cloth",
+    other: "Other",
   }.freeze
 
   #

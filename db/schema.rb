@@ -12,6 +12,8 @@
 
 ActiveRecord::Schema.define(version: 2020_12_11_102030) do
 
+  # use single table inheritance
+  # keep all products data in the same table and differenciate by it's type
   create_table "products", force: :cascade do |t|
     t.string "type"
     t.string "name"
@@ -27,5 +29,4 @@ ActiveRecord::Schema.define(version: 2020_12_11_102030) do
     t.datetime "updated_at", null: false
     t.boolean "exported"
   end
-
 end
