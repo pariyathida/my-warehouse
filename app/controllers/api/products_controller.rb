@@ -1,8 +1,8 @@
 class Api::ProductsController < ActionController::API
   def index
-    @product = Product.all
+    @products = Product.all
 
-    render json: @product
+    render json: @products
   end
 
   def show
@@ -15,7 +15,7 @@ class Api::ProductsController < ActionController::API
     @product = Product.new(permitted_params)
 
     if @product.valid?
-      @product.update(total_fee: @product.calculate_fee)
+      @product.update(total_fee: @product.calculate_fee) # calculate fee and save to database
       @product.save
 
       render json: @product

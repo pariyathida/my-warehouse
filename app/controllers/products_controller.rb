@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+# this class is for http://localhost:3000/products
 
   def index
     @product = Product.all

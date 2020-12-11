@@ -1,8 +1,6 @@
 class SupplementaryFood < Product
   FEE = 1 # 1 THB/ day/ 1 cm^3
 
-  ##### validate w l h > 10 cm
-
   def calculate_fee
     total_fee = FEE * volume_in_cm
 
