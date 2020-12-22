@@ -3,34 +3,23 @@ class ParcelType < ApplicationRecord
   # supplementary_food: 1 THB/ day/ 1 cm^3
   # clothes: 20 THB/ day/ 1 kg (10,000 cm^3)
 
-  validates :type_name,
-    :calculate_by_weight,
-    :calculate_by_dimension,
-    :double_rate_each_day,
+  validates :name,
     :fee_rate,
-    :conversion_rate,
+    :weight_conversion,
+    :dimension_conversion,
   presence: true
 
-  def find_type
-    ParcelType.find_by(type_name: type_name)
-  end
+  validates :calculate_by_weight,
+    :calculate_by_dimension,
+    :double_rate_each_day,
+  inclusion: { in: [ true, false ] }
 
   def calculate_total_fee(weight, dimension, days)
-    if weight.present? && calculate_by_weight
-      total_fee_per_day = weight * fee_rate * weight_conversion
-    else
-      total_fee_per_day = dimension * fee_rate * dimension_conversion
-    end
+    total_fee_per_day = calculate_total_fee_per_day(weight, dimension)
 
     return total_fee_per_day * days unless double_rate_each_day
 
-    # calculate double rate each day
-    total_fee = total_fee_per_day
-    (1..days-1).each do |i| # second till last
-      total_fee += (total_fee_per_day * i * 2)
-    end
-
-    total_fee
+    calculate_double_rate_each_day(fee_per_day, days)
   end
 
   def calculate_by_weight?
@@ -38,7 +27,7 @@ class ParcelType < ApplicationRecord
   end
 
   def calculate_by_dimension?
-    calculate_by_dimension
+    calculate_by_dimension || true
   end
 
   def volume_in_m(volume_in_cm)
@@ -51,5 +40,25 @@ class ParcelType < ApplicationRecord
 
   def weight_in_kg(weight_in_g)
     weight_in_g.to_f * 0.001
+  end
+
+  private
+
+  def calculate_total_fee_per_day(weight, dimension)
+    # if not calculate by weight, it will always calculate by dimension
+    if weight.present? && calculate_by_weight
+      weight * fee_rate * weight_conversion
+    else
+      dimension * fee_rate * dimension_conversion
+    end
+  end
+
+  def calculate_double_rate_each_day(fee_per_day, days)
+    total_fee = fee_per_day
+    (1..days-1).each do |i| # second till last
+      total_fee += (fee_per_day * i * 2)
+    end
+
+    total_fee
   end
 end

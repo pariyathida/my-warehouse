@@ -11,7 +11,7 @@ other:
   double_rate_each_day: false
   fee_rate: 10
   currency: "thb"
-  weight_conversion: nil
+  weight_conversion: 1
   dimension_conversion: 0.000001 # volume_in_cm^3 to volume_in_m^3
 
 cloth:
@@ -29,8 +29,8 @@ supplementary_food:
   calculate_by_weight: false
   calculate_by_dimension: true
   double_rate_each_day: true
-  fee_rate: 20
+  fee_rate: 1
   currency: "thb"
-  weight_conversion: nil
+  weight_conversion: 1
   dimension_conversion: 1 # volume_in_cm^3
 
