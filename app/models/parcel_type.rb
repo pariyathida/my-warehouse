@@ -14,6 +14,10 @@ class ParcelType < ApplicationRecord
     :double_rate_each_day,
   inclusion: { in: [ true, false ] }
 
+  def find_type
+    ParcelType.find_by(type_name: type_name)
+  end
+
   def calculate_total_fee(weight, dimension, days)
     total_fee_per_day = calculate_total_fee_per_day(weight, dimension)
 
@@ -22,25 +26,17 @@ class ParcelType < ApplicationRecord
     calculate_double_rate_each_day(fee_per_day, days)
   end
 
-  def calculate_by_weight?
-    calculate_by_weight
-  end
+  # def volume_in_m(volume_in_cm)
+  #   volume_in_cm * 0.000001
+  # end
 
-  def calculate_by_dimension?
-    calculate_by_dimension || true
-  end
+  # def volume_to_weight_in_kg(volume_in_cm)
+  #   volume_in_cm * 0.0001 # 10000 cm^3 = 1 kg
+  # end
 
-  def volume_in_m(volume_in_cm)
-    volume_in_cm * 0.000001
-  end
-
-  def volume_to_weight_in_kg(volume_in_cm)
-    volume_in_cm * 0.0001 # 10000 cm^3 = 1 kg
-  end
-
-  def weight_in_kg(weight_in_g)
-    weight_in_g.to_f * 0.001
-  end
+  # def weight_in_kg(weight_in_g)
+  #   weight_in_g.to_f * 0.001
+  # end
 
   private
 
