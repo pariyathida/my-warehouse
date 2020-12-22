@@ -2,9 +2,9 @@ class Api::ParcelTypesController < ActionController::API
   before_action :set_parcel_type, only: [:update]
 
   def index
-    @parcel_type = ParcelType.all
+    @parcel_types = ParcelType.all
 
-    render json: @parcel_type
+    render json: @parcel_types
   end
 
   def create

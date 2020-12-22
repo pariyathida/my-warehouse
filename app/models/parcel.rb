@@ -17,6 +17,11 @@ class Parcel < ApplicationRecord
   validate :available_date_range? # check that the export date must be after the import date
   validate :weight_or_dimension_provided? # validate either weight or dimension must be provided
 
+
+
+
+  # validation
+
   def available_date_range?
     return false if import_date.nil? || export_date.nil?
 
@@ -39,8 +44,14 @@ class Parcel < ApplicationRecord
     end
   end
 
-  def calculate_date_range
-    calculate_number_of_days(import_date, export_date)
+  # calculation
+
+  def calculate_date_range(d1 = import_date, d2 = export_date)
+    calculate_number_of_days(d1, d2)
+  end
+
+  def calculate_dimension(w = width, l = length, h = height)
+    (w * l * h).to_f
   end
 
   private
