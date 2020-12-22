@@ -10,10 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_102030) do
+ActiveRecord::Schema.define(version: 2020_12_22_171322) do
 
-  # use single table inheritance
-  # keep all products data in the same table and differenciate by it's type
+  create_table "parcel_types", force: :cascade do |t|
+    t.string "name"
+    t.boolean "calculate_by_weight"
+    t.boolean "calculate_by_dimension"
+    t.boolean "double_rate_each_day"
+    t.float "fee_rate"
+    t.float "weight_conversion"
+    t.float "dimension_conversion"
+    t.string "currency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "parcels", force: :cascade do |t|
+    t.datetime "import_date"
+    t.datetime "export_date"
+    t.integer "weight"
+    t.integer "width"
+    t.integer "length"
+    t.integer "height"
+    t.boolean "in_stock"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "type"
     t.string "name"
@@ -27,6 +50,6 @@ ActiveRecord::Schema.define(version: 2020_12_11_102030) do
     t.float "total_fee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "exported"
   end
+
 end

@@ -15,7 +15,6 @@ product_supplementary_food:
   width: 10
   length: 10
   height: 10
-  exported: false
   created_at: "2020-12-11T10:10:01.976Z"
   updated_at: "2020-12-11T10:10:01.976Z"
 
@@ -30,7 +29,6 @@ product_clothes:
   width: 10
   length: 10
   height: 10
-  exported: false
   created_at: "2020-12-11T10:10:01.976Z"
   updated_at: "2020-12-11T10:10:01.976Z"
 
@@ -45,6 +43,5 @@ product_others:
   width: 10
   length: 10
   height: 10
-  exported: false
   created_at: "2020-12-11T10:10:01.976Z"
   updated_at: "2020-12-11T10:10:01.976Z"
