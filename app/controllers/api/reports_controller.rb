@@ -1,5 +1,4 @@
 class Api::ReportsController < ActionController::API
-
   def summary
     summary = {
       total_number_of_products: Summary.total_number_of_products,
