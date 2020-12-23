@@ -1,4 +1,6 @@
 class Parcel < ApplicationRecord
+  # กล่องสินค้า ที่นำเข้ามาจัดเก็บในคลัง จะถูกคิดค่าธรรมเนียมตามนำ้หนักหรือขนาดกล่อง
+  # ค่าธรรมเนียมแตกต่างกันไปตาม parcel_type ที่ระบุไว้
 
   validates :weight,
     :width,
@@ -17,7 +19,7 @@ class Parcel < ApplicationRecord
   validate :available_date_range? # check that the export date must be after the import date
   validate :weight_or_dimension_provided? # validate either weight or dimension must be provided
 
-
+  # TODO: add parcel_type association
 
 
   # validation
@@ -25,7 +27,7 @@ class Parcel < ApplicationRecord
   def available_date_range?
     return false if import_date.nil? || export_date.nil?
 
-    unless day_range > 0
+    unless calculate_date_range > 0
       errors.add(:export_date, "must be after the import_date")
     end
   end

@@ -4,8 +4,35 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+supplementary_food_parcel: 
+  id: 1
+  import_date: "2020-12-08T22:08:00.000Z"
+  export_date: "2020-12-10T22:08:00.000Z"
+  weight: 0
+  width: 10
+  length: 10
+  height: 10
+  created_at: "2020-12-11T10:10:01.976Z"
+  updated_at: "2020-12-11T10:10:01.976Z"
+
+cloth_parcel: 
+  id: 2
+  import_date: "2020-12-08T22:08:00.000Z"
+  export_date: "2020-12-10T22:08:00.000Z"
+  weight: 100
+  width: 10
+  length: 10
+  height: 10
+  created_at: "2020-12-11T10:10:01.976Z"
+  updated_at: "2020-12-11T10:10:01.976Z"
+
+other_parcel: 
+  id: 3
+  import_date: "2020-12-08T22:08:00.000Z"
+  export_date: "2020-12-10T22:08:00.000Z"
+  weight: 0
+  width: 10
+  length: 10
+  height: 10
+  created_at: "2020-12-11T10:10:01.976Z"
+  updated_at: "2020-12-11T10:10:01.976Z"

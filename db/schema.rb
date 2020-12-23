@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_22_171322) do
+ActiveRecord::Schema.define(version: 2020_12_23_160325) do
 
   create_table "parcel_types", force: :cascade do |t|
     t.string "name"
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 2020_12_22_171322) do
     t.integer "length"
     t.integer "height"
     t.float "total_fee"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stocks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "suppliers", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
